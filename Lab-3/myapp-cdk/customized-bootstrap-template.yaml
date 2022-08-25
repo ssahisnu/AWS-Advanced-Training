@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: This stack includes resources needed to deploy AWS CDK apps into this environment
+
+Parameters:
+
+  Qualifier:
+    Description: An identifier to distinguish multiple bootstrap stacks in the same environment
+    Default: cdk8487
+    Type: String
+    AllowedPattern: "[A-Za-z0-9_-]{1,10}"
+    ConstraintDescription: Qualifier must be an alphanumeric identifier of at most 10 characters
+    
+  FileAssetsBucketKmsKeyId:
+    Description: Empty to create a new key (default), 'AWS_MANAGED_KEY' to use a managed S3 key, or the ID/ARN of an existing key.
+    Default: ""
+    Type: String
+    
+  PublicAccessBlockConfiguration:
+    Description: Whether or not to enable S3 Staging Bucket Public Access Block Configuration
+    Default: "true"
+    Type: String
+    AllowedValues:
+      - "true"
+      - "false"
+    
+Resources:
+  
+  CdkBootstrapVersion:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Name:
+        Fn::Sub: /cdk-bootstrap/${Qualifier}/version
+      Value: "10"
+      
+Outputs:
+
+  BootstrapVersion:
+    Description: The version of the bootstrap resources that are currently mastered in this stack
+    Value:
+      Fn::GetAtt:
+        - CdkBootstrapVersion
+        - Value
+  
+  BucketName:
+    Description: The name of the S3 bucket owned by the CDK toolkit stack
+    Value: 
+      Fn::Sub: 'cdk-staging-bucket-${AWS::AccountId}-${AWS::Region}'
+
+  BucketDomainName:
+    Description: The domain name of the S3 bucket owned by the CDK toolkit stack
+    Value:
+      Fn::Sub: cdk-staging-bucket-${AWS::AccountId}-${AWS::Region}.s3.${AWS::Region}.amazonaws.com

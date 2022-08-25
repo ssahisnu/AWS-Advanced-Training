@@ -1,0 +1,62 @@
+{
+  "version": "20.0.0",
+  "files": {
+    "13e93f22a2e66e4ddb15b44666e76f7fc4bf3d608686a5711fba14290a542038": {
+      "source": {
+        "path": "asset.13e93f22a2e66e4ddb15b44666e76f7fc4bf3d608686a5711fba14290a542038",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-staging-bucket-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "13e93f22a2e66e4ddb15b44666e76f7fc4bf3d608686a5711fba14290a542038.zip",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/CDK-LabStack-File-Publishing-Role",
+          "assumeRoleExternalId": ""
+        }
+      }
+    },
+    "9de149fa00d957761bef437a441e323b156b11d818dfb26dd9419cae3bb3ab10": {
+      "source": {
+        "path": "asset.9de149fa00d957761bef437a441e323b156b11d818dfb26dd9419cae3bb3ab10",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-staging-bucket-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "9de149fa00d957761bef437a441e323b156b11d818dfb26dd9419cae3bb3ab10.zip",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/CDK-LabStack-File-Publishing-Role",
+          "assumeRoleExternalId": ""
+        }
+      }
+    },
+    "6f06f325e164225f237141f1a1e7f7b966265bc570294f5e6438728358902f3a": {
+      "source": {
+        "path": "asset.6f06f325e164225f237141f1a1e7f7b966265bc570294f5e6438728358902f3a",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-staging-bucket-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "6f06f325e164225f237141f1a1e7f7b966265bc570294f5e6438728358902f3a.zip",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/CDK-LabStack-File-Publishing-Role",
+          "assumeRoleExternalId": ""
+        }
+      }
+    },
+    "0f77e41c9b6b8ebddba7b008ff288c7894048c728e9ab55270a5e932f7621b02": {
+      "source": {
+        "path": "MyappCdkStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-staging-bucket-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "0f77e41c9b6b8ebddba7b008ff288c7894048c728e9ab55270a5e932f7621b02.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/CDK-LabStack-File-Publishing-Role",
+          "assumeRoleExternalId": ""
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,615 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.1.86"
+        }
+      },
+      "MyappCdkStack": {
+        "id": "MyappCdkStack",
+        "path": "MyappCdkStack",
+        "children": {
+          "MutableRoleRole": {
+            "id": "MutableRoleRole",
+            "path": "MyappCdkStack/MutableRoleRole",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "Role": {
+            "id": "Role",
+            "path": "MyappCdkStack/Role",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "MutableRoleRole-1": {
+            "id": "MutableRoleRole-1",
+            "path": "MyappCdkStack/MutableRoleRole-1",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "Role-1": {
+            "id": "Role-1",
+            "path": "MyappCdkStack/Role-1",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "MutableRoleRole-2": {
+            "id": "MutableRoleRole-2",
+            "path": "MyappCdkStack/MutableRoleRole-2",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "Role-2": {
+            "id": "Role-2",
+            "path": "MyappCdkStack/Role-2",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "MutableRoleRole-3": {
+            "id": "MutableRoleRole-3",
+            "path": "MyappCdkStack/MutableRoleRole-3",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "Role-3": {
+            "id": "Role-3",
+            "path": "MyappCdkStack/Role-3",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "MutableRoleRole-4": {
+            "id": "MutableRoleRole-4",
+            "path": "MyappCdkStack/MutableRoleRole-4",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "Role-4": {
+            "id": "Role-4",
+            "path": "MyappCdkStack/Role-4",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.38.1"
+            }
+          },
+          "rekognitionFunction": {
+            "id": "rekognitionFunction",
+            "path": "MyappCdkStack/rekognitionFunction",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "MyappCdkStack/rekognitionFunction/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "MyappCdkStack/rekognitionFunction/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.38.1"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "MyappCdkStack/rekognitionFunction/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.38.1"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "MyappCdkStack/rekognitionFunction/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-staging-bucket-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "13e93f22a2e66e4ddb15b44666e76f7fc4bf3d608686a5711fba14290a542038.zip"
+                    },
+                    "role": "arn:aws:iam::146982910096:role/rekognitionRole",
+                    "handler": "index.handler",
+                    "runtime": "python3.8"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.38.1"
+            }
+          },
+          "humanFunction": {
+            "id": "humanFunction",
+            "path": "MyappCdkStack/humanFunction",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "MyappCdkStack/humanFunction/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "MyappCdkStack/humanFunction/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.38.1"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "MyappCdkStack/humanFunction/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.38.1"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "MyappCdkStack/humanFunction/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-staging-bucket-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "9de149fa00d957761bef437a441e323b156b11d818dfb26dd9419cae3bb3ab10.zip"
+                    },
+                    "role": "arn:aws:iam::146982910096:role/s3ImageServiceRole",
+                    "environment": {
+                      "variables": {
+                        "topicARN": "arn:aws:sns:us-east-2:146982910096:send-email"
+                      }
+                    },
+                    "handler": "index.handler",
+                    "runtime": "python3.8"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.38.1"
+            }
+          },
+          "Process Image": {
+            "id": "Process Image",
+            "path": "MyappCdkStack/Process Image",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.LambdaInvoke",
+              "version": "2.38.1"
+            }
+          },
+          "We succeeded! Yay!": {
+            "id": "We succeeded! Yay!",
+            "path": "MyappCdkStack/We succeeded! Yay!",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Succeed",
+              "version": "2.38.1"
+            }
+          },
+          "Process Human": {
+            "id": "Process Human",
+            "path": "MyappCdkStack/Process Human",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions_tasks.LambdaInvoke",
+              "version": "2.38.1"
+            }
+          },
+          "Other Processing": {
+            "id": "Other Processing",
+            "path": "MyappCdkStack/Other Processing",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Pass",
+              "version": "2.38.1"
+            }
+          },
+          "Human Found?": {
+            "id": "Human Found?",
+            "path": "MyappCdkStack/Human Found?",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.Choice",
+              "version": "2.38.1"
+            }
+          },
+          "StateMachine": {
+            "id": "StateMachine",
+            "path": "MyappCdkStack/StateMachine",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "MyappCdkStack/StateMachine/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::StepFunctions::StateMachine",
+                  "aws:cdk:cloudformation:props": {
+                    "roleArn": "arn:aws:iam::146982910096:role/StateMachineRole",
+                    "definitionString": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "{\"StartAt\":\"Process Image\",\"States\":{\"Process Image\":{\"Next\":\"Human Found?\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+                          {
+                            "Fn::GetAtt": [
+                              "rekognitionFunctionAC00BB5D",
+                              "Arn"
+                            ]
+                          },
+                          "\",\"Payload.$\":\"$\"}},\"Human Found?\":{\"Type\":\"Choice\",\"Choices\":[{\"Variable\":\"$.found\",\"StringEquals\":\"human\",\"Next\":\"Process Human\"},{\"Variable\":\"$.found\",\"StringEquals\":\"other\",\"Next\":\"Other Processing\"}]},\"Process Human\":{\"Next\":\"We succeeded! Yay!\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"Resource\":\"arn:",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+                          {
+                            "Fn::GetAtt": [
+                              "humanFunction7E7930F6",
+                              "Arn"
+                            ]
+                          },
+                          "\",\"Payload.$\":\"$\"}},\"We succeeded! Yay!\":{\"Type\":\"Succeed\"},\"Other Processing\":{\"Type\":\"Pass\",\"Next\":\"We succeeded! Yay!\"}}}"
+                        ]
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_stepfunctions.CfnStateMachine",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_stepfunctions.StateMachine",
+              "version": "2.38.1"
+            }
+          },
+          "input-bucket": {
+            "id": "input-bucket",
+            "path": "MyappCdkStack/input-bucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "MyappCdkStack/input-bucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {}
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.38.1"
+                }
+              },
+              "Notifications": {
+                "id": "Notifications",
+                "path": "MyappCdkStack/input-bucket/Notifications",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "MyappCdkStack/input-bucket/Notifications/Resource",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.1.86"
+                }
+              },
+              "AllowBucketNotificationsToMyappCdkStacks3Function6A64A278": {
+                "id": "AllowBucketNotificationsToMyappCdkStacks3Function6A64A278",
+                "path": "MyappCdkStack/input-bucket/AllowBucketNotificationsToMyappCdkStacks3Function6A64A278",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                  "aws:cdk:cloudformation:props": {
+                    "action": "lambda:InvokeFunction",
+                    "functionName": {
+                      "Fn::GetAtt": [
+                        "s3FunctionBB71FA4A",
+                        "Arn"
+                      ]
+                    },
+                    "principal": "s3.amazonaws.com",
+                    "sourceAccount": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "sourceArn": {
+                      "Fn::GetAtt": [
+                        "inputbucket08D572F4",
+                        "Arn"
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.38.1"
+            }
+          },
+          "s3Function": {
+            "id": "s3Function",
+            "path": "MyappCdkStack/s3Function",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "MyappCdkStack/s3Function/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "MyappCdkStack/s3Function/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.38.1"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "MyappCdkStack/s3Function/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.38.1"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "MyappCdkStack/s3Function/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-staging-bucket-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "6f06f325e164225f237141f1a1e7f7b966265bc570294f5e6438728358902f3a.zip"
+                    },
+                    "role": "arn:aws:iam::146982910096:role/s3FunctionServiceRole",
+                    "environment": {
+                      "variables": {
+                        "STEP_ARN": {
+                          "Ref": "StateMachine2E01A3A5"
+                        }
+                      }
+                    },
+                    "handler": "index.handler",
+                    "runtime": "python3.8"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "version": "2.38.1"
+            }
+          },
+          "processing-bucket": {
+            "id": "processing-bucket",
+            "path": "MyappCdkStack/processing-bucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "MyappCdkStack/processing-bucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {}
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.38.1"
+            }
+          },
+          "BucketNotificationsHandler050a0587b7544547bf325f094a3db834": {
+            "id": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834",
+            "path": "MyappCdkStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834",
+            "children": {
+              "Role": {
+                "id": "Role",
+                "path": "MyappCdkStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "MyappCdkStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.38.1"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "MyappCdkStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "MyappCdkStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "s3:PutBucketNotification",
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36",
+                            "roles": [
+                              {
+                                "Ref": "BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.38.1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.38.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.38.1"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "MyappCdkStack/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.86"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "MyappCdkStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "MyappCdkStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.38.1"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "MyappCdkStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.38.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.86"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.38.1"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.38.1"
+    }
+  }
+}
