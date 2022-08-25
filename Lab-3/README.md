@@ -5,7 +5,7 @@ The components of this application will be defined in a series of Step Functions
 All application development will be done within an AWS Cloud9 IDE.
 
 </br></br>
-Find in repo: Typescript init project created using <strong>cdk init -l typescript</strong>
+Find in repo: Typescript init project `myapp-cdk` created using <strong>cdk init -l typescript</strong>
 
 <ul>
 <li>
