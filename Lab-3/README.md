@@ -72,7 +72,7 @@ Find the template <strong>customized-bootstrap-template.yaml</strong>
 ![highQ-sta](https://user-images.githubusercontent.com/43699421/186732431-81923ea1-04d5-4d71-a2fd-bde9b583d354.gif)
 
 
-<h4>Resources</h4>
+<h3>Resources</h3>
 <h4>AWS Cloud Development Kit</h4>
 The AWS Cloud Development Kit (AWS CDK) is an open source software development framework to model and provision your cloud application resources using familiar programming languages.
 It provides you with high-level components that pre-configure cloud resources with proven defaults, so you can build cloud applications without needing to be an expert.
