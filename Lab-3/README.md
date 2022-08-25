@@ -4,35 +4,6 @@ With the CDK, you will leverage Amazon Rekognition to identify human faces withi
 The components of this application will be defined in a series of Step Functions that is provisioned by the CDK.
 All application development will be done within an AWS Cloud9 IDE.
 
-
-<h4>AWS Cloud Development Kit</h4>
-The AWS Cloud Development Kit (AWS CDK) is an open source software development framework to model and provision your cloud application resources using familiar programming languages.
-It provides you with high-level components that pre-configure cloud resources with proven defaults, so you can build cloud applications without needing to be an expert.
-AWS CDK provisions your resources in a safe, repeatable manner through AWS CloudFormation.
-</br>
-Learn more: https://aws.amazon.com/cdk/
-
-<h4>AWS Step Functions</h4>
-AWS Step Functions makes it easy to coordinate the components of distributed applications as a series of steps in a visual workflow.
-You can quickly build and run state machines to run the steps of your application in a reliable and scalable fashion.
-</br>
-Learn more: https://aws.amazon.com/step-functions/
-
-<h4>AWS Cloud9</h4>
-AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser.
-It includes a code editor, debugger, and terminal. Cloud9 comes prepackaged with essential tools for popular programming languages,
-including JavaScript, Python, PHP, and more, so you don’t need to install files or configure your development machine to start new projects.
-</br>
-Learn more: https://aws.amazon.com/cloud9/
-
-<h4>AWS Rekognition</h4>
-Amazon Rekognition makes it easy to add image and video analysis to your applications.
-You just provide an image or video to the Rekognition API, and the service can identify the objects, people, text, scenes, and activities,
-as well as detect any inappropriate content. Amazon Rekognition also provides highly accurate facial analysis and facial recognition
-on images and video that you provide. You can detect, analyze, and compare faces for a wide variety of user verification,
-people counting, and public safety use cases.
-</br>
-Learn more: https://aws.amazon.com/rekognition/
 </br></br>
 Find in repo: Typescript init project created using <strong>cdk init -l typescript</strong>
 
@@ -88,13 +59,45 @@ Find the template <strong>customized-bootstrap-template.yaml</strong>
 
 <h5>Deploy Application Stack</h5>
 <code>cdk deploy</code>
-</br>
-![Screenshot 2022-08-25 at 10 17 47 PM](https://user-images.githubusercontent.com/43699421/186729622-b8eb7578-d74b-4176-aad5-0c97964ca386.png)
+</br></br>
+<img src="https://user-images.githubusercontent.com/43699421/186729622-b8eb7578-d74b-4176-aad5-0c97964ca386.png", alt="CLI-Output">
 
 <h5>Test Application</h5>
 <code>inputBucketName=$(aws s3api list-buckets --output text --query 'Buckets[?contains(Name, `myappcdkstack-inputbucket`) == `true`] | [0].Name')</code>
 </br>
 <code>aws s3 cp human.jpg s3://$inputBucketName</code>
 
-Test Flow
+<h4>Test Flow</h4>
 
+![highQ-sta](https://user-images.githubusercontent.com/43699421/186732431-81923ea1-04d5-4d71-a2fd-bde9b583d354.gif)
+
+
+<h4>Resources</h4>
+<h4>AWS Cloud Development Kit</h4>
+The AWS Cloud Development Kit (AWS CDK) is an open source software development framework to model and provision your cloud application resources using familiar programming languages.
+It provides you with high-level components that pre-configure cloud resources with proven defaults, so you can build cloud applications without needing to be an expert.
+AWS CDK provisions your resources in a safe, repeatable manner through AWS CloudFormation.
+</br>
+Learn more: https://aws.amazon.com/cdk/
+
+<h4>AWS Step Functions</h4>
+AWS Step Functions makes it easy to coordinate the components of distributed applications as a series of steps in a visual workflow.
+You can quickly build and run state machines to run the steps of your application in a reliable and scalable fashion.
+</br>
+Learn more: https://aws.amazon.com/step-functions/
+
+<h4>AWS Cloud9</h4>
+AWS Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser.
+It includes a code editor, debugger, and terminal. Cloud9 comes prepackaged with essential tools for popular programming languages,
+including JavaScript, Python, PHP, and more, so you don’t need to install files or configure your development machine to start new projects.
+</br>
+Learn more: https://aws.amazon.com/cloud9/
+
+<h4>AWS Rekognition</h4>
+Amazon Rekognition makes it easy to add image and video analysis to your applications.
+You just provide an image or video to the Rekognition API, and the service can identify the objects, people, text, scenes, and activities,
+as well as detect any inappropriate content. Amazon Rekognition also provides highly accurate facial analysis and facial recognition
+on images and video that you provide. You can detect, analyze, and compare faces for a wide variety of user verification,
+people counting, and public safety use cases.
+</br>
+Learn more: https://aws.amazon.com/rekognition/
