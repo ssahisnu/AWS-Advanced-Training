@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Microservices - Messaging Demo</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="css/style.css" rel="stylesheet">
+    <style type="text/css">
+
+    canvas {
+      background-color: #dddddd;
+      width: 100%;
+      height: auto;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="loading" id="loader">Loading&#8230;</div>
+    <div class="container" style="margin-top:20px;">
+
+      <div class="row-fluid">
+        <ul class="thumbnails">
+          <li class="span4">
+            <div class="thumbnail" style="padding: 0">
+              <div style="padding:4px">
+                <canvas id="mqtt_publisher_div" width="370" height="400">
+                  Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                </canvas>
+              </div>
+              <div class="caption">
+                <h2>MQTT Publisher</h2>
+                <p>Mouse moves are published to an AWS IoT Topic</p>
+              </div>
+              <div class="modal-footer" style="text-align: center">
+                <div class="row-fluid">
+                  <div id="msgSent" class="span12"><b>0</b><br/><small>Messages Sent</small></div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="span4">
+            <img src="images/idevelop_aws_logo.png">
+
+              <div class="caption">
+                <div class="dropdown">
+                  <button style="margin-top:10px;margin-bottom:10px;" class="btn btn-block btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    AWS IoT MQTT publisher to MQTT subscriber
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="sqs-standard.html">AWS SQS (standard) publisher to SQS subscriber</a></li>
+                    <li><a href="sqs-standard-multisub.html">AWS SQS (standard) publisher to multiple SQS subscribers</a></li>
+                    <li><a href="sqs-fifo.html">AWS SQS (FIFO) publisher to SQS subscriber</a></li>
+                    <li><a href="sns-multisub.html">AWS SNS publisher to multiple SQS subscribers</a></li>
+                    <li><a href="kinesis-publisher.html">AWS Kinesis publisher to SQS subscriber</a></li>
+                    <li class="active"><a href="mqtt-primary.html">AWS IoT MQTT publisher to MQTT subscriber</a></li>
+                    <li><a href="mqtt-replica.html">AWS IoT MQTT publisher to MQTT subscriber replica</a></li>
+                  </ul>
+                </div>
+
+                <div style="padding:7px;color:#666666">
+                  <p>
+                    Use the grey canvas on the left to draw a shape with the mouse while you hold down the left mouse button.
+                  </p>
+                  <p>
+                    As you draw, messages containing information about the X &amp; Y coordinates of the mouse will be published to a custom IoT topic. These
+                    messages will be received by the browser which is subscribed to the same custom topic, and rendered on the right-hand
+                    canvas.
+                  </p>
+                  <p>
+                    There will be some latency between the send and receive times of messages between the left and right canvases. This information will be shown in the statistics panels.
+                  </p>
+                  <br><br>
+                  <center>
+                    <button type="button" class="btn btn-primary btn-md" onclick="MQTTPublisher.clearCanvas()">Clear drawing</button>
+                  </center>
+              </div>
+              </div>
+
+          </li>
+          <li class="span4">
+            <div class="thumbnail" style="padding: 0">
+              <div style="padding:4px">
+                <canvas id="mqtt_subscriber_div" width="370" height="400">
+                  Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                </canvas>
+              </div>
+              <div class="caption">
+                <h2>MQTT Subscriber</h2>
+                <p>Messages received via AWS IoT and plotted on canvas</p>
+              </div>
+              <div class="modal-footer" style="text-align: center">
+                <div class="row-fluid">
+                  <div id="msgReceived" class="span6"><b>0</b><br/><small>Messages Received</small></div>
+                  <div id="msgLatencyAverage" class="span6"><b>0</b><br/><small>Average Latency</small></div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+  </div>
+
+  <script>
+    var MQTTPublisher = null;
+    var MQTTSubscriber = null;
+    var wsConnections  = 0;
+
+    // cognito authentication completed callback
+    // - take this opportunity to instantiate the
+    //   pub/sub components
+    var cognitoConnectedFunction = function(configuration)
+    {
+      console.log("cognito connected");
+
+      MQTTSubscriber = new MQTTSubscriberDrawingContainer('mqtt_subscriber_div', configuration, onSubscriberStatistics);
+      MQTTSubscriber.startWebSocket(onConnected);
+
+      MQTTPublisher = new MQTTPublisherDrawingContainer('mqtt_publisher_div', configuration, onPublisherStatistics);
+      MQTTPublisher.startWebSocket(onConnected);
+    };
+
+    function onConnected()
+    {
+      if ( ++wsConnections == 2 )
+        $("#loader").hide();
+
+    }
+
+    var aggregateStatistics = {};
+
+    function onPublisherStatistics(statistics)
+    {
+      //console.log(statistics.MessagesSent);
+      $("#msgSent").html("<b>"+statistics.MessagesSent + "</b><br>Messages Sent");
+
+      aggregateStatistics.MessagesSent = statistics.MessagesSent;
+    }
+
+    function onSubscriberStatistics(statistics)
+    {
+      aggregateStatistics.MessagesReceived = statistics.MessagesReceived;
+
+      $("#msgReceived").html("<b>"+statistics.MessagesReceived + "</b><br>Messages Received");
+      $("#msgLatencyAverage").html("<b>"+ ~~(statistics.MessageLatencyAverage) + "ms</b><br>Average Latency");
+    }
+  </script>
+
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+  <script src="scripts/aws-sdk-2.22.0.min.js"></script>
+  <script src="scripts/amazon-cognito.min.js"></script>
+  <script src="scripts/mqttws31.js"></script>
+  <script src="scripts/aws-config.js"></script>
+
+  <script src="scripts/cognito-bootstrap.js"></script>
+  <script src="scripts/drawing-container.js"></script>
+  <script src="scripts/mqtt-container.js"></script>
+
+</body>
+</html>

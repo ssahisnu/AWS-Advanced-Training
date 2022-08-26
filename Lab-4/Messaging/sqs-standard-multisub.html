@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Microservices - Messaging Demo</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="css/style.css" rel="stylesheet">
+    <style type="text/css">
+
+    canvas {
+      background-color: #dddddd;
+      width: 100%;
+      height: auto;
+    }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+    <script src="scripts/aws-sdk-2.22.0.min.js"></script>
+    <script src="scripts/amazon-cognito.min.js"></script>
+
+  </head>
+  <body>
+
+    <div class="loading" id="loader">Loading&#8230;</div>
+
+    <div class="container" style="margin-top:20px;">
+
+      <div class="row-fluid">
+        <ul class="thumbnails">
+          <li class="span4">
+            <div class="thumbnail" style="padding: 0">
+              <div style="padding:4px">
+                <canvas id="sqs_publisher_div" width="370" height="180">
+                  Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                </canvas>
+              </div>
+              <div class="caption">
+                <h2>SQS Publisher</h2>
+                <p>Mouse moves are submitted to an AWS SQS Queue</p>
+              </div>
+              <div class="modal-footer" style="text-align: center">
+                <p style="color:#aaaaaa"><i>Messages waiting to be Confirmed</i></p>
+                <div class="progress progress-striped active" style="background: #ddd">
+                  <div id="barOutQueue" class="bar" style="width: 0%;"></div>
+                </div>
+                <div class="row-fluid">
+                  <div id="msgSent" class="span6"><b>0</b><br/><small>Messages Sent</small></div>
+                  <div id="msgConfirmed" class="span6"><b>0</b><br/><small>Messages Confirmed</small></div>
+                </div>
+
+                <hr/>
+
+                <p style="color:#aaaaaa"><i>Messages not yet received</i></p>
+                <div class="progress" style="background: #ddd">
+                  <div id="barInQueue" class="bar bar-success" style="width: 0%;"></div>
+                </div>
+                <div class="row-fluid">
+                  <div id="msgReceived" class="span6"><b>0</b><br/><small>Messages Received</small></div>
+                  <div id="msgLatencyAverage" class="span6"><b>0</b><br/><small>Average Latency</small></div>
+                </div>
+
+              </div>
+            </div>
+          </li>
+          <li class="span4">
+            <img src="images/idevelop_aws_logo.png">
+
+              <div class="caption">
+
+                <div class="dropdown">
+                  <button style="margin-top:10px;margin-bottom:10px;" class="btn btn-block btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    AWS SQS (standard) publisher to multiple SQS subscribers
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="sqs-standard.html">AWS SQS (standard) publisher to SQS subscriber</a></li>
+                    <li class="active"><a href="sqs-standard-multisub.html">AWS SQS (standard) publisher to multiple SQS subscribers</a></li>
+                    <li><a href="sqs-fifo.html">AWS SQS (FIFO) publisher to SQS subscriber</a></li>
+                    <li><a href="sns-multisub.html">AWS SNS publisher to multiple SQS subscribers</a></li>
+                    <li><a href="kinesis-publisher.html">AWS Kinesis publisher to SQS subscriber</a></li>
+                    <li><a href="mqtt-primary.html">AWS IoT MQTT publisher to MQTT subscriber</a></li>
+                    <li><a href="mqtt-replica.html">AWS IoT MQTT publisher to MQTT subscriber replica</a></li>
+                  </ul>
+                </div>
+
+                <div style="padding:7px;color:#666666">
+                  <p>
+                    Use the grey canvas on the left to draw a shape with the mouse while you hold down the left mouse button.
+                  </p>
+                  <p>
+                    As you draw, messages will be sent to an SQS containing information about the X &amp; Y coordinates of the mouse. These
+                    messages will be received by the browser polling the same SQS queue with 3 different subscribers, each rendering the events they receive on their own canvas.
+                  </p>
+                  <p>
+                    <b>Notice how the points are drawn out of order on the right-hand side and no single canvas has the complete drawing?</b><br><br>Points are drawn out of order because messages received via an SQS queue are received in an indeterminate order. This is a characteristic of the standard SQS queue. And since each canvas is polling the same SQS Queue, they are competing for the messages in the queue, and will arbitrarily receive the points events and render them, stealing them from the other canvases.
+                  </p>
+
+                  <br><br>
+                  <center>
+                    <button type="button" class="btn btn-primary btn-md" onclick="SQSPublisher.clearCanvas()">Clear drawing</button>
+                  </center>
+              </div>
+
+              </div>
+
+          </li>
+          <li class="span4">
+            <div class="thumbnail" style="padding: 0">
+              <div style="padding:4px">
+                <span style="color:#999999; font-size:10px">SQS Subscriber A</span>
+                <canvas id="sqs_subscriberA_div" width="370" height="180">
+                  Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                </canvas>
+              </div>
+              <div style="padding:4px">
+                <span style="color:#999999; font-size:10px">SQS Subscriber B</span>
+                <canvas id="sqs_subscriberB_div" width="370" height="180">
+                  Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                </canvas>
+              </div>
+              <div style="padding:4px">
+                <span style="color:#999999; font-size:10px">SQS Subscriber C</span>
+                <canvas id="sqs_subscriberC_div" width="370" height="180">
+                  Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                </canvas>
+              </div>
+
+            </div>
+          </li>
+
+  </div>
+
+  <script>
+    var SQSPublisher = null;
+    var SQSSubscriber = null;
+    var aggregateStatistics = {};
+
+    // cognito authentication completed callback
+    // - take this opportunity to instantiate the
+    //   pub/sub components
+    var cognitoConnectedFunction = function(configuration)
+    {
+      console.log("cognito connected");
+      $("#loader").hide();
+
+      var sqs = new AWS.SQS();
+      SQSPublisher   = new SQSPublisherDrawingContainer ('sqs_publisher_div',   configuration, configuration.SQS.Standard.QueueUrl, sqs, onPublisherStatistics);
+      SQSSubscriberA = new SQSSubscriberDrawingContainer('sqs_subscriberA_div', configuration, configuration.SQS.Standard.QueueUrl, sqs, onSubscriberStatistics);
+      SQSSubscriberB = new SQSSubscriberDrawingContainer('sqs_subscriberB_div', configuration, configuration.SQS.Standard.QueueUrl, sqs, onSubscriberStatistics);
+      SQSSubscriberC = new SQSSubscriberDrawingContainer('sqs_subscriberC_div', configuration, configuration.SQS.Standard.QueueUrl, sqs, onSubscriberStatistics);
+
+    };
+
+    function onPublisherStatistics(statistics)
+    {
+      //console.log(statistics.MessagesSent);
+      $("#msgSent").html("<b>"+statistics.MessagesSent + "</b><br>Messages Sent");
+      $("#msgConfirmed").html("<b>"+statistics.MessagesConfirmed + "</b><br>Messages Confirmed");
+
+      var messagesOutstanding = statistics.MessagesSent - statistics.MessagesConfirmed;
+      if ( messagesOutstanding > 100 )
+        messagesOutstanding = 100;
+
+      $("#barOutQueue").width(messagesOutstanding + "%");
+
+      aggregateStatistics.MessagesSent = statistics.MessagesSent;
+      aggregateStatistics.MessagesConfirmed = statistics.MessagesConfirmed;
+      aggregateStatistics.MessagesSent = statistics.MessagesSent;
+    }
+
+    function onSubscriberStatistics(statistics)
+    {
+      //
+      // Since we are multi-tenanted for subscription in this demo,
+      // we can't soley take the statistics from the event sender, because
+      // it will not include other subscriber statistics. We need to aggregate
+      // across all of our subscribers
+      //
+      aggregateStatistics.MessagesReceived =
+        SQSSubscriberA.statistics.MessagesReceived +
+        SQSSubscriberB.statistics.MessagesReceived +
+        SQSSubscriberC.statistics.MessagesReceived;
+
+      aggregateStatistics.MessageLatencyAverage =
+        ( SQSSubscriberA.statistics.MessageLatencyAverage +
+          SQSSubscriberB.statistics.MessageLatencyAverage +
+          SQSSubscriberC.statistics.MessageLatencyAverage ) / 3;
+
+      $("#msgReceived").html("<b>"+aggregateStatistics.MessagesReceived + "</b><br>Messages Received");
+      $("#msgLatencyAverage").html("<b>"+ ~~(aggregateStatistics.MessageLatencyAverage) + "ms</b><br>Average Latency");
+
+      $("#barInQueue").width(((aggregateStatistics.MessagesReceived/aggregateStatistics.MessagesConfirmed*100))+ "%");
+
+
+    }
+  </script>
+
+  <script src="scripts/aws-config.js"></script>
+  <script src="scripts/cognito-bootstrap.js"></script>
+  <script src="scripts/drawing-container.js"></script>
+  <script src="scripts/sqs-containers.js"></script>
+
+</body>
+</html>
