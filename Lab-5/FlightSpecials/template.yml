@@ -1,0 +1,123 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+- AWS::Serverless-2016-10-31
+- AWS::CodeStar
+
+Parameters:
+  ProjectId:
+    Type: String
+    Description: AWS CodeStar projectID used to associate new resources to team members
+  CodeDeployRole:
+    Type: String
+    Description: IAM role to allow AWS CodeDeploy to manage deployment of AWS Lambda functions
+  Stage:
+    Type: String
+    Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
+    Default: ''
+
+Globals:
+  Function:
+    AutoPublishAlias: live
+    DeploymentPreference:
+      Enabled: true
+      Type: Canary10Percent5Minutes
+      Role: !Ref CodeDeployRole
+
+Resources:
+
+  RestAPI:
+    Type: 'AWS::Serverless::Api'
+    Properties:
+      StageName: Prod
+      DefinitionUri: swagger.yml
+      Variables:
+        LambdaFlightSpecials: !Ref GetFlightSpecials
+
+
+  GetFlightSpecials:
+    Type: AWS::Serverless::Function
+    DependsOn: microservicesFlightSpecialsLambdaExecRole
+    Properties:
+      CodeUri: target/flightspecials-1.0.0.jar
+      Handler: microservices.lambda.FlightSpecialsHandler
+      Runtime: java8
+      Description: Returns a list of the current flight specials as JSON
+      Role: !GetAtt microservicesFlightSpecialsLambdaExecRole.Arn
+      Timeout: 30
+      MemorySize: 1024
+      VpcConfig:
+        SecurityGroupIds:
+          - REPLACE_DB_SECURITY_GROUP
+        SubnetIds:
+          - REPLACE_DB_SUBNET_1
+          - REPLACE_DB_SUBNET_2
+      Environment:
+        Variables:
+          JDBC_CONNECTION_STRING: REPLACE_RDS_ENDPOINT
+          JDBC_UID: root
+          JDBC_PWD: labpassword
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /flightspecials
+            Method: get
+            RestApiId: !Ref RestAPI
+
+  microservicesFlightSpecialsLambdaExecRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        -
+          PolicyName: "LambdaFunctionsAccess"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Action: "dynamodb:*"
+                Resource: "*"
+              -
+                Effect: "Allow"
+                Action:
+                  - "xray:PutTraceSegments"
+                  - "xray:PutTelemetryRecords"
+                Resource: "*"
+              -
+                Effect: "Allow"
+                Action:
+                  - "iam:GetRole"
+                  - "iam:CreateRole"
+                  - "iam:DeleteRole"
+                  - "iam:PassRole"
+                  - "iam:PutRolePolicy"
+                  - "iam:DeleteRolePolicy"
+                  - "lambda:ListTags"
+                  - "lambda:TagResource"
+                  - "lambda:UntagResource"
+                  - "ec2:DescribeSecurityGroups"
+                  - "ec2:DescribeSubnets"
+                  - "ec2:DescribeVpcs"
+                  - "ec2:CreateNetworkInterface"
+                  - "ec2:AttachNetworkInterface"
+                  - "ec2:DescribeNetworkInterfaces"
+                  - "ec2:DeleteNetworkInterface"
+                Resource: "*"
+  LambdaGetFlightSpecialsPermissions:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      FunctionName: !GetAtt GetFlightSpecials.Arn
+      Action: "lambda:InvokeFunction"
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RestAPI}/*/flightspecials

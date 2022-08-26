@@ -1,0 +1,14 @@
+microservices\lambda\test\TestContext.class
+microservices\lambda\test\TestContext$1.class
+microservices\lambda\test\TestContext$TestLogger.class
+microservices\lambda\test\TestUtils$DynamodbEventMixin$StreamRecordMixin.class
+microservices\lambda\test\TestUtils$DateTimeSerializer.class
+microservices\lambda\test\TestUtils.class
+microservices\lambda\test\TestUtils$DynamodbEventMixin.class
+microservices\lambda\test\TestUtils$DynamodbEventMixin$AttributeValueMixIn.class
+microservices\lambda\test\TestUtils$TestJacksonMapperModule.class
+microservices\lambda\test\TestUtils$UpperCaseRecordsPropertyNamingStrategy.class
+microservices\lambda\test\TestUtils$DynamodbEventMixin$RecordMixin.class
+microservices\lambda\test\LambdaFunctionHandlerTest.class
+microservices\lambda\test\TestUtils$1.class
+microservices\lambda\test\TestUtils$DateTimeDeserializer.class

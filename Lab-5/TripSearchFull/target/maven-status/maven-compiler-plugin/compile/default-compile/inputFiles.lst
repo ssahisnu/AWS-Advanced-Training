@@ -1,0 +1,12 @@
+C:\lab5\TripSearchFull\src\main\java\microservices\lambda\domain\TripSector.java
+C:\lab5\TripSearchFull\src\main\java\microservices\lambda\FindTripsFromCityHandler.java
+C:\lab5\TripSearchFull\src\main\java\microservices\lambda\FindTripsToCityHandler.java
+C:\lab5\TripSearchFull\src\main\java\microservices\model\TripSearchRequest.java
+C:\lab5\TripSearchFull\src\main\java\microservices\lambda\dao\DynamoDBTripDao.java
+C:\lab5\TripSearchFull\src\main\java\microservices\lambda\LambdaHandlerWithXRayBase.java
+C:\lab5\TripSearchFull\src\main\java\microservices\lambda\dao\ITripDao.java
+C:\lab5\TripSearchFull\src\main\java\microservices\model\LambdaResult.java
+C:\lab5\TripSearchFull\src\main\java\microservices\model\TripSearchPayload.java
+C:\lab5\TripSearchFull\src\main\java\microservices\lambda\util\Consts.java
+C:\lab5\TripSearchFull\src\main\java\microservices\lambda\FindAllTripsHandler.java
+C:\lab5\TripSearchFull\src\main\java\microservices\lambda\manager\DynamoDBManager.java

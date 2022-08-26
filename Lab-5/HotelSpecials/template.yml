@@ -1,0 +1,123 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+- AWS::Serverless-2016-10-31
+
+Resources:
+  RESTAPI:
+    Type: "AWS::ApiGateway::RestApi"
+    Properties:
+      Body:
+        swagger: "2.0"
+        info:
+          version: "1.0"
+          title: "Microservices - Hotel Specials API"
+          description: "Returns a list of Hotel Specials"
+        basePath: "/prod"
+        schemes:
+        - "https"
+        paths:
+          /hotelspecials:
+            get:
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              responses:
+                "200":
+                  description: "200 response"
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: "200"
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                requestTemplates:
+                  application/json: "{\n    \"payload\" : {},\n    \"operation\" : \"GET\"\
+                    ,\n    \"correlationId\" : \"$context.requestId\"\n}"
+                uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${!stageVariables.envHotelSpecials}/invocations"    
+                passthroughBehavior: "when_no_templates"
+                httpMethod: "POST"
+                contentHandling: "CONVERT_TO_TEXT"
+                type: "aws"
+            options:
+              consumes:
+              - "application/json"
+              produces:
+              - "application/json"
+              responses:
+                "200":
+                  description: "200 response"
+                  schema:
+                    $ref: "#/definitions/Empty"
+                  headers:
+                    Access-Control-Allow-Origin:
+                      type: "string"
+                    Access-Control-Allow-Methods:
+                      type: "string"
+                    Access-Control-Allow-Headers:
+                      type: "string"
+              x-amazon-apigateway-integration:
+                responses:
+                  default:
+                    statusCode: "200"
+                    responseParameters:
+                      method.response.header.Access-Control-Allow-Methods: "'GET,OPTIONS'"
+                      method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                      method.response.header.Access-Control-Allow-Origin: "'*'"
+                requestTemplates:
+                  application/json: "{\"statusCode\": 200}"
+                passthroughBehavior: "when_no_match"
+                type: "mock"
+
+        definitions:
+          Empty:
+            type: "object"
+            title: "Empty Schema"
+      
+  RESTAPIDeployment:
+    Type: "AWS::ApiGateway::Deployment"
+    Properties:
+      RestApiId: !Ref RESTAPI
+      Description: "Production deployment"
+      StageName: "prod"
+      StageDescription:
+        Description: "Production Stage"
+        Variables:
+          envHotelSpecials: !Ref LambdaGetHotelSpecials
+
+  LambdaGetHotelSpecials:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: target/hotelspecials-1.0.0.jar
+      FunctionName: GetHotelSpecials
+      Description: Returns a list of the current Hotel specials as JSON
+      Handler: microservices.lambda.HotelSpecialsHandler
+      Runtime: java8
+      MemorySize: 1024
+      Timeout: 15
+      Role: !Sub arn:aws:iam::${AWS::AccountId}:role/microservicesLambdaExecutionRole
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-04ffe5bdf94c2eb64
+        SubnetIds:
+          - subnet-00bbd7d1ec11e7958
+          - subnet-0b6c7c4efeae3ca02
+      Environment:
+        Variables:
+          JDBC_CONNECTION_STRING: jdbc:mysql://labstack-4b96c70e-3de4-4c4a-8766-2ce-labdbinstance-shgjgrsmoekk.cb9exr16cx8i.us-east-1.rds.amazonaws.com:3306/cloudair?useSSL=false&serverTimezone=UTC&autoReconnect=true
+          JDBC_UID: root
+          JDBC_PWD: labpassword
+
+  LambdaGetHotelSpecialsPermissions:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      FunctionName: !GetAtt LambdaGetHotelSpecials.Arn
+      Action: "lambda:InvokeFunction"
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${RESTAPI}/*/hotelspecials
+
