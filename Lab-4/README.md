@@ -45,8 +45,11 @@ AWS has several messaging solutions, from queuing to streaming, and you investig
 </ul>
  
  <h4>SQS Queue setup</h4>
- ![sqsconsole2020](https://user-images.githubusercontent.com/43699421/186849546-ea5bc8e4-2937-47ee-b4cb-6f16edf94252.png)
 <p>3 standard queues and 1 FIFO queue</p>
+
+![sqsconsole2020](https://user-images.githubusercontent.com/43699421/186849546-ea5bc8e4-2937-47ee-b4cb-6f16edf94252.png)
+
+<h3>SQS publisher to SQS subscriber</h3>
   
 ![sqs-sqs-hd](https://user-images.githubusercontent.com/43699421/186841883-89bf4367-4d6f-4734-8f8d-0df8a8f3c62d.gif)
 
