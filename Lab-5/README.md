@@ -27,12 +27,12 @@ Find in repo and build <em>TripSearchFull</em> artifact
   <li>Create FindTripsToCity lambda </br>
     <code>aws lambda create-function --function-name microservicesTripSearchToCity --runtime java8 --role <LambdaExecutionRole> --handler microservices.lambda.FindTripsToCityHandler --code S3Bucket=<S3BucketLambdaCode>,S3Key=tripsearch-1.0.0.jar --timeout 15 --memory-size 1024 --profile aws-lab-env</code>
   </li>
-  <li></li>
 </ul>
 
 <h4>Create APIs to expose TripSearch microservice using AWS ApiGateway</h4>
 
 ![Screenshot 2022-08-26 at 8 02 56 PM](https://user-images.githubusercontent.com/43699421/186928000-4d080081-9f52-4a9e-9c30-9676821ae173.png)
+</br>
 <strong>Test the apis</strong>
 
 ![task-1-trips23-output](https://user-images.githubusercontent.com/43699421/186933650-443a2854-be83-4e1e-b57a-2a3613ced596.png)
@@ -90,11 +90,15 @@ Associate the API keys to the exposed APIs
 <h4>Add Authentication to the SPA website using Amazon Cognito</h4>
 Find the config file in <em>webapp-configuration.js</em>
 </br>
+</br>
 <strong>Mark the /trips API to require authenticaion</strong>
 
 ![image](https://user-images.githubusercontent.com/43699421/186939067-2071145c-de67-4242-bb28-52b443f0979e.png)
 </br>
-<strong>Live demo</strong>
+Redeploy the application using <em>aws s3 sync</em>
+</br>
+</br>
+<strong>Live: Observe the security error at the bottom right</strong>
 
 ![trim-std](https://user-images.githubusercontent.com/43699421/186922906-d5a498d1-cd4e-46f6-a50a-61e9973d45c0.gif)
 
