@@ -1,8 +1,7 @@
 <h3>Overview</h3>
-In this lab, you explore the different messaging options on the AWS platform.
-Messaging is an important concept to understand when designing scalable, decoupled architectures; it makes them more resistant to failure.
+This lab shows the different messaging options on the AWS platform.
+Messaging help in designing scalable, decoupled architectures; also it makes them more resistant to failure.
 Building applications from the individual components that each perform a discrete function improves scalability and reliability and is a best practice of design for modern applications.
-AWS has several messaging solutions, from queuing to streaming, and you investigate the behaviors of each as you go through the lab.
 
 <h3>Objectives</h3>
 <blockquote>
@@ -13,17 +12,6 @@ AWS has several messaging solutions, from queuing to streaming, and you investig
 <li>Read data from an Amazon Kinesis stream using an AWS Lambda function.</li>
 </ul>
 </blockquote>
-
-<h4>Software Requirements</h4>
-<ul>
-<li><a href="https://git-scm.com/book/en/v1/Getting-Started-Installing-Git" target="_blank">Git client</a></li>
-<li><a href="http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html" title="Java 8 JDK" target="_blank">Java 8 JDK</a></li>
-<li><a href="https://www.eclipse.org/downloads/eclipse-packages/" title="Eclipse IDE" target="_blank">Eclipse IDE for Java EE Developers</a>.</li>
-<li><a href="https://tomcat.apache.org/download-90.cgi" title="Tomcat Home Support ApacheThe Apache Software Foundation Apache Tomcat" target="_blank">Tomcat 8 or 9</a>.</li>
-<li><a href="http://docs.aws.amazon.com/toolkit-for-eclipse/v1/user-guide/setup-install.html" target="_blank">AWS Toolkit for Eclipse</a></li>
-<li><a href="http://docs.aws.amazon.com/cli/latest/userguide/installing.html" target="_blank">AWS CLI</a></li>
-<li><a href="https://maven.apache.org/download.cgi" title="Maven" target="_blank">Maven 3.5.0+</a></li>
-</ul>
 
 <h4>Create, Configure, and Populate an S3 bucket website</h4>
 <ul>
