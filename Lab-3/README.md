@@ -1,6 +1,6 @@
 <h3>Overview</h3>
-Develop and deploy a cloud application using the Cloud Development Kit (CDK).
-With the CDK, you will leverage Amazon Rekognition to identify human faces within images that you upload to an S3 bucket.
+Developed and deployed a cloud application using the Cloud Development Kit (CDK).
+With the CDK, leveraged Amazon Rekognition to identify human faces within images that you upload to an S3 bucket.
 The components of this application will be defined in a series of Step Functions that is provisioned by the CDK.
 All application development will be done within an AWS Cloud9 IDE.
 
