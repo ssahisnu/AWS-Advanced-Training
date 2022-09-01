@@ -1,5 +1,5 @@
 <h3>Overview</h3>
-This lab shows the different messaging options on the AWS platform.
+Explored different messaging options on the AWS platform.
 Messaging help in designing scalable, decoupled architectures; also it makes them more resistant to failure.
 Building applications from the individual components that each perform a discrete function improves scalability and reliability and is a best practice of design for modern applications.
 
